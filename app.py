@@ -37,20 +37,20 @@ if st.button("Generate AI Response", type = "primary"):
   elif mode == "improve answers":
      task = "question :" + question + "MY Answer : " + answer + "imporve the answern based oon choice on words key words to include. do not invent anything about candidate " 
   background = "job role: " + role + " difficult level: " + level
-   with st.spinner(" generating your answer .... "):
-     try:
-       response = client.chat.completions.create(
-         model = gen_model,
-         messages = [{"role":"system","content":"Act as a senoir interviewer , both HR and technicall expert"},
+  with st.spinner(" generating your answer .... "):
+    try:
+      response = client.chat.completions.create(
+        model = gen_model,
+        messages = [{"role":"system","content":"Act as a senoir interviewer , both HR and technicall expert"},
                      {"role" : "user",
                      "content" : backgroound + task }],
-         temprature = 0.7,
-         max_tokens = 2000)
-         output = response.choices[0].message.content
-         st.subheader("AI Response ")
-         st.markdown(output)
-         st.download_button("Download response", output , file_name = "Interview_Response.txt", mime = 'text/plain' )
-     except Exception as e:
-       st.error ("API connection was unsuccessful: ", e)
-       st.info ("Please check your API key and rate limits")
+        temprature = 0.7,
+        max_tokens = 2000)
+        output = response.choices[0].message.content
+        st.subheader("AI Response ")
+        st.markdown(output)
+        st.download_button("Download response", output , file_name = "Interview_Response.txt", mime = 'text/plain' )
+    except Exception as e:
+      st.error ("API connection was unsuccessful: ", e)
+      st.info ("Please check your API key and rate limits")
 st.caption("Powerd by streamlit.io and  github. using LLM API")
